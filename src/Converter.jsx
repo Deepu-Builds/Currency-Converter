@@ -37,57 +37,78 @@ function Converter() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-5 p-5">
-      <h2 className="text-xl font-bold">💱 Currency Converter</h2>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-5">
+      <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl w-full max-w-md p-8 text-center text-gray-100">
+        <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+          💱 Currency Converter
+        </h2>
 
-      <form onSubmit={handleConvert} className="flex gap-4 items-center">
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="border p-2 rounded w-24"
-        />
-
-        <select
-          value={fromCurrency}
-          onChange={(e) => setFromCurrency(e.target.value)}
-          className="border p-2 rounded"
+        <form
+          onSubmit={handleConvert}
+          className="flex flex-col gap-4 items-center"
         >
-          {options.map((crn, index) => (
-            <option value={crn} key={index}>
-              {crn}
-            </option>
-          ))}
-        </select>
+          <div className="flex items-center gap-3">
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="bg-gray-900/50 border border-gray-700 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-400 w-28 text-center"
+              min="0"
+            />
 
-        <p>➡️</p>
+            <select
+              value={fromCurrency}
+              onChange={(e) => setFromCurrency(e.target.value)}
+              className="bg-gray-900/50 border border-gray-700 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-400"
+            >
+              {options.map((crn, index) => (
+                <option value={crn} key={index}>
+                  {crn}
+                </option>
+              ))}
+            </select>
 
-        <select
-          value={toCurrency}
-          onChange={(e) => setToCurrency(e.target.value)}
-          className="border p-2 rounded"
-        >
-          {options.map((crn, index) => (
-            <option value={crn} key={index}>
-              {crn}
-            </option>
-          ))}
-        </select>
+            <p className="text-2xl text-green-400">⇄</p>
 
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Convert
-        </button>
-      </form>
+            <select
+              value={toCurrency}
+              onChange={(e) => setToCurrency(e.target.value)}
+              className="bg-gray-900/50 border border-gray-700 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-400"
+            >
+              {options.map((crn, index) => (
+                <option value={crn} key={index}>
+                  {crn}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <div className="text-lg font-semibold">
+          <button
+            type="submit"
+            className="mt-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 hover:shadow-green-500/30 transition-transform duration-200"
+          >
+            Convert
+          </button>
+        </form>
+
         {result > 0 && (
-          <p>
-            {amount} {fromCurrency} = {result} {toCurrency}
-          </p>
+          <div className="mt-6 text-xl font-semibold text-green-300">
+            {amount} {fromCurrency} ={" "}
+            <span className="text-white">{result}</span> {toCurrency}
+          </div>
         )}
+
+        <p className="text-sm text-gray-400 mt-6">
+          Exchange rates powered by{" "}
+          <a
+            href="https://www.exchangerate-api.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-green-400 hover:underline"
+          >
+            ExchangeRate API
+          </a>
+        </p>
       </div>
     </div>
   );
